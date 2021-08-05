@@ -1,0 +1,39 @@
+create database Supply_chain_management
+use Supply_chain_management
+create table Suppliers
+(
+SId int primary key,
+SName Varchar(30),
+Sproduct varchar(20),
+Slocation varchar(26))
+
+create table Manufacturers
+(
+MId int primary key,
+MName varchar(23),
+Mproducts varchar(36),
+Mlocation varchar(25),
+Mgf_date datetime,
+Exp_date datetime,
+SMId  int foreign key references Suppliers(SId),
+)
+
+create table Distributor
+(
+DId int primary key,
+DName varchar(34),
+Dproducts varchar(20),
+MRPprice float,
+Discount int,
+SPrice as MRPprice*100/Discount persisted,
+SDId int foreign key references Suppliers(SId),
+MDId int foreign key references Manufacturers(MId))
+
+Create table Customer
+(
+CId int primary key,
+CName varchar(20),
+CPhone varchar(10),
+CLocation varchar(27),
+Pay_method varchar(10),
+CDId int foreign key references Distributor(DId))
